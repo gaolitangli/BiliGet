@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BiliGet</title>
+<meta charset='utf8'/>
+<link href='static/favicon.ico' rel='icon' type='image/x-icon'/>
+<script>
+    var load=document.createElement('img');
+	load.src='static/loading.gif';
+	function $(id) {
+		return document.getElementById(id);
+	}
+
+	function center() {
+		var ele = $('main');
+		var s_width = document.body.scrollWidth;
+		var s_height = navigator.userAgent.toString().indexOf('Chrome')==-1?document.documentElement.scrollHeight:document.body.scrollHeight;
+		var e_width = ele.offsetWidth;
+		var e_height = ele.offsetHeight;
+		var left = (s_width - e_width) / 2 + 'px',
+			top = (s_height - e_height) / 2 + 'px';
+			console.log(s_width,s_height,e_width,e_height,left,top);
+		ele.style.left = left;
+		ele.style.top = top;
+	}
+
+	function show() {
+		center();
+		var ele = $('main');
+		ele.style.opacity = 0;
+
+		(function() {
+			ele.style.opacity=parseFloat(ele.style.opacity)+0.1;
+			if(parseFloat(ele.style.opacity) < 1) {
+				setTimeout(arguments.callee, 80);
+			}
+		})();
+	}
+
+	function ajaxReturn() {
+		var url = encodeURIComponent($('url').value);
+		var result = $('result');
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			
+			if(xhr.readyState == 4) {
+				if(xhr.status == 200) {
+					var data = JSON.parse(xhr.responseText);
+					result.innerHTML = '';
+					result.style.textAlign='left';
+					data.forEach(function(e, i, a) {
+						result.innerHTML += '<p><a href="' + e + '">' + e + '</a></p>';
+					});
+				} else {
+					result.style.textAlign='center';
+					result.innerHTML = 'Σ( ° △ °|||';
+				}
+			}
+		}
+		xhr.open('GET', '?url=' + url, true);
+		xhr.send();
+		result.style.textAlign='center';
+		result.innerHTML='';
+		result.appendChild(load);
+
+		return false;
+	}
+	window.onload = show;
+</script>
+<style>
+	body{
+		font:14px/20px 'Microsoft YaHei',Arial,Helvetica,sans-serif;
+		background:#FFF url('static/bg.jpg') center no-repeat fixed;
+	}
+	#main{
+		padding:50px;
+		text-align:center;
+		position:fixed;
+		background:rgba(255,255,255,0.5);
+		width:600px;
+		height:400px;
+		margin:0 auto;
+		border-radius:20px;
+		opacity:0;
+	}
+	#logo{
+		opacity:0.8;
+		margin:20px;
+	}	
+	#result{
+		margin:10px;
+		height:160px;
+		overflow-y:auto;
+		overflow-x:hidden;
+	}
+	p{
+		margin:0;
+		padding:0;
+	}
+	a{
+		color:#36C;
+		text-decoration:none;
+	}
+	input[type='url']{
+		border:1px solid #DEDEDE;
+		background:rgba(255,255,255,0.8);
+		height:30px;
+		width:400px;
+		border-radius:5px;
+	}
+	input[type='submit']{
+		height:30px;
+	}
+</style>
+</head>
+<body onresize='center()'>
+	<div id='main'>
+		<div id='logo'>
+			<img src='static/logo.png' width='400' height='179'/>
+		</div>
+		<form method='get' action='' onSubmit='return ajaxReturn()'>
+			<input type='url' id='url' placeholder='http://www.bilibili.tv/avxxxxxxx' autofocus />
+			<input type='submit' value='Get!'/>
+		</form>
+		<div id='result'></div>
+	</div>
+</body>
+</html>
+<!-- Code By BlackGlory(www.blackglory.co.cc) -->
