@@ -121,22 +121,30 @@ server.on('request', function(req, res) {
 
     var get = url.parse(req.url, true);
     if(get.pathname == '/') {
-        if(get.query.url) {
-            getId(get.query.url, function(id) {
-                getURL(id, function(list) {
-                    if(list) {
-                        res.writeHead(200, {
-                            'Content-Type': mime['json']
-                        });
-                        res.end(JSON.stringify(list));
-                    } else {
-                        res.writeHead(404, {
-                            'Content-Type': mime['json']
-                        });
-                        res.end();
-                    }
+        if('url' in get.query) {
+            get.query.url = get.query.url.trim();
+            if(get.query.url) {
+                getId(get.query.url, function(id) {
+                    getURL(id, function(list) {
+                        if(list) {
+                            res.writeHead(200, {
+                                'Content-Type': mime['json']
+                            });
+                            res.end(JSON.stringify(list));
+                        } else {
+                            res.writeHead(404, {
+                                'Content-Type': mime['json']
+                            });
+                            res.end();
+                        }
+                    });
                 });
-            });
+            } else {
+                res.writeHead(404, {
+                    'Content-Type': mime['json']
+                });
+                res.end();
+            }
         } else {
             res.writeHead(200, {
                 'Content-Type': 'text/html'
