@@ -65,50 +65,55 @@
 		<div id='result'></div>
 	</div>
 <script>
-	function $(id) {
-		return document.getElementById(id);
-	}
-	function show() {
-		var ele = $('main');
-		ele.style.opacity = 0;
+    var load = document.createElement('img');
+    load.src = 'static/loading.gif';
 
-		(function() {
-			ele.style.opacity=parseFloat(ele.style.opacity)+0.1;
-			if(parseFloat(ele.style.opacity) < 1) {
-				setTimeout(arguments.callee, 80);
-			}
-		})();
-	}
+    function $(id) {
+    	return document.getElementById(id);
+    }
 
-	function ajaxReturn() {
-		var url = encodeURIComponent($('url').value);
-		var result = $('result');
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
-			
-			if(xhr.readyState == 4) {
-				if(xhr.status == 200) {
-					var data = JSON.parse(xhr.responseText);
-					result.innerHTML = '';
-					result.style.textAlign='left';
-					data.forEach(function(e, i, a) {
-						result.innerHTML += '<p><a href="' + e + '">' + e + '</a></p>';
-					});
-				} else {
-					result.style.textAlign='center';
-					result.innerHTML = 'Σ( ° △ °|||';
-				}
-			}
-		}
-		xhr.open('GET', '?url=' + url, true);
-		xhr.send();
-		result.style.textAlign='center';
-		result.innerHTML='';
-		result.appendChild(load);
+    function show() {
+    	var ele = $('main');
+    	ele.style.opacity = 0;
 
-		return false;
-	}
-	show();
+    	(function() {
+    		ele.style.opacity = parseFloat(ele.style.opacity) + 0.1;
+    		if(parseFloat(ele.style.opacity) < 1) {
+    			setTimeout(arguments.callee, 80);
+    		}
+    	})();
+    }
+
+    function ajaxReturn() {
+    	var url = encodeURIComponent($('url').value);
+    	var result = $('result');
+    	var xhr = new XMLHttpRequest();
+    	xhr.onreadystatechange = function() {
+
+    		if(xhr.readyState == 4) {
+    			if(xhr.status == 200) {
+    				var data = JSON.parse(xhr.responseText);
+    				result.innerHTML = '';
+    				result.style.textAlign = 'left';
+    				data.forEach(function(e, i, a) {
+    					result.innerHTML += '<p><a href="' + e + '">' + e + '</a></p>';
+    				});
+    			} else {
+    				result.style.textAlign = 'center';
+    				result.innerHTML = 'Σ( ° △ °|||';
+    			}
+    		}
+    	}
+    	xhr.open('GET', '?url=' + url, true);
+    	xhr.send();
+    	result.style.textAlign = 'center';
+    	result.innerHTML = '';
+    	result.appendChild(load);
+
+    	return false;
+    }
+    show();
 </script>
 </body>
 </html>
+<!-- Code By BlackGlory(www.blackglory.co.cc) -->
