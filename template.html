@@ -4,9 +4,67 @@
 <title>BiliGet</title>
 <meta charset='utf8'/>
 <link href='static/favicon.ico' rel='icon' type='image/x-icon'/>
+<style>
+    body{
+		font:14px/20px 'Microsoft YaHei',Arial,Helvetica,sans-serif;
+		background:#FFF url('static/bg.jpg') center no-repeat fixed;
+	}
+	#main{
+		padding:50px;
+		text-align:center;
+		position:fixed;
+		background:rgba(255,255,255,0.5);
+		width:600px;
+		height:400px;
+		top:50%;
+		left:50%;
+		margin:-250px 0 0 -350px;
+		border-radius:20px;
+		opacity:0;
+	}
+	#logo{
+		opacity:0.8;
+		margin:20px;
+	}	
+	#result{
+		margin:10px;
+		height:160px;
+		overflow-y:auto;
+		overflow-x:hidden;
+	}
+	p{
+		margin:0;
+		padding:0;
+	}
+	a{
+		color:#36C;
+		text-decoration:none;
+	}
+	input[type='url']{
+		border:1px solid #DEDEDE;
+		background:rgba(255,255,255,0.8);
+		height:30px;
+		width:400px;
+		border-radius:5px;
+		padding:0 5px;
+	}
+	input[type='submit']{
+		height:30px;
+	}
+</style>
+</head>
+<body >
+	<div id='main'>
+		<div id='logo'>
+			<img src='static/logo.png' width='400' height='179'/>
+		</div>
+		<form method='get' action='' onSubmit='return ajaxReturn()'>
+			<input type='url' id='url' placeholder='http://www.bilibili.tv/avxxxxxxx' autofocus required/>
+			<input type='submit' value='Get!'/>
+		</form>
+		<div id='result'></div>
+	</div>
 <script>
-    var load=document.createElement('img');
-	load.src='static/loading.gif';
 	function $(id) {
 		return document.getElementById(id);
 	}
@@ -50,66 +108,8 @@
 
 		return false;
 	}
-	window.onload = show;
+	show();
 </script>
-<style>
-	body{
-		font:14px/20px 'Microsoft YaHei',Arial,Helvetica,sans-serif;
-		background:#FFF url('static/bg.jpg') center no-repeat fixed;
-	}
-	#main{
-		padding:50px;
-		text-align:center;
-		position:fixed;
-		background:rgba(255,255,255,0.5);
-		width:600px;
-		height:400px;
-		top:50%;
-		left:50%;
-		margin:-250px 0 0 -350px;
-		border-radius:20px;
-		opacity:0;
-	}
-	#logo{
-		opacity:0.8;
-		margin:20px;
-	}	
-	#result{
-		margin:10px;
-		height:160px;
-		overflow-y:auto;
-		overflow-x:hidden;
-	}
-	p{
-		margin:0;
-		padding:0;
-	}
-	a{
-		color:#36C;
-		text-decoration:none;
-	}
-	input[type='url']{
-		border:1px solid #DEDEDE;
-		background:rgba(255,255,255,0.8);
-		height:30px;
-		width:400px;
-		border-radius:5px;
-	}
-	input[type='submit']{
-		height:30px;
-	}
-</style>
-</head>
-<body >
-	<div id='main'>
-		<div id='logo'>
-			<img src='static/logo.png' width='400' height='179'/>
-		</div>
-		<form method='get' action='' onSubmit='return ajaxReturn()'>
-			<input type='url' id='url' placeholder='http://www.bilibili.tv/avxxxxxxx' autofocus required/>
-			<input type='submit' value='Get!'/>
-		</form>
-		<div id='result'></div>
-	</div>
 </body>
 </html>
+<!-- Code By BlackGlory(www.blackglory.co.cc) -->
